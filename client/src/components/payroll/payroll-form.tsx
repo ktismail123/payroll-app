@@ -135,7 +135,7 @@ export function PayrollForm({ payrollData, isEditing = false, onSuccess }: Payro
         totalDeductions: calculateTotalDeductions().toString(), // Convert to string
         netSalary: calculateNetSalary(parseFloat(data.basicSalary)).toString(), // Convert to string
         status: 'draft',
-        processDate: new Date().toISOString(), // Add required processDate
+        processDate: new Date(), // Add required processDate as Date object, not string
       });
       
       if (!payrollResponse.ok) {
