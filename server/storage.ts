@@ -145,9 +145,18 @@ export class MemStorage implements IStorage {
     // Create default administrator user
     this.createUser({
       username: 'admin',
-      password: '$2b$10$uCvWrfuRi1N37UiFLBWgSuwB3SLfzn7eIYPT8BzlDLyQmypIjHRhi', // "password" hashed
+      password: 'f740c79b192dbd41c14edd7c59f6aa195c9d97e61ad3d6a137d59c85f0b547a4fb69d58a9af61dbfcbf8c5bb694b67041efe9d15e1ce17b5f1d8ea3d66b32c17.eb4ac3033e9848f489e298d9b51c3d79', // "admin123" hashed
       email: 'admin@example.com',
       role: 'administrator',
+      status: true
+    });
+    
+    // Create HR manager user
+    this.createUser({
+      username: 'hrmanager',
+      password: 'f740c79b192dbd41c14edd7c59f6aa195c9d97e61ad3d6a137d59c85f0b547a4fb69d58a9af61dbfcbf8c5bb694b67041efe9d15e1ce17b5f1d8ea3d66b32c17.eb4ac3033e9848f489e298d9b51c3d79', // "admin123" hashed
+      email: 'hr@example.com',
+      role: 'hr_manager',
       status: true
     });
 
