@@ -40,17 +40,49 @@ export default function PayrollPage() {
       <Breadcrumb items={[{ label: "Payroll" }]} />
       
       <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <Tabs 
-          value={activeTab} 
-          onValueChange={setActiveTab}
-          className="w-full sm:w-auto"
-        >
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="pending">Pending</TabsTrigger>
-            <TabsTrigger value="approved">Approved</TabsTrigger>
-            <TabsTrigger value="paid">Paid</TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="w-full sm:w-auto">
+          <Tabs 
+            value={activeTab} 
+            onValueChange={setActiveTab}
+            className="w-full"
+          >
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="pending">Pending</TabsTrigger>
+              <TabsTrigger value="approved">Approved</TabsTrigger>
+              <TabsTrigger value="paid">Paid</TabsTrigger>
+            </TabsList>
+            <TabsContent value="pending" forceMount className="mt-4">
+              <PayrollList 
+                payrolls={activeTab === "pending" ? (payrollData || []) : []} 
+                isLoading={isLoading && activeTab === "pending"} 
+                error={activeTab === "pending" ? error : null}
+                status="pending"
+                canApprove={canProcessPayroll}
+                onStatusChange={refetch}
+              />
+            </TabsContent>
+            <TabsContent value="approved" forceMount className="mt-4">
+              <PayrollList 
+                payrolls={activeTab === "approved" ? (payrollData || []) : []} 
+                isLoading={isLoading && activeTab === "approved"} 
+                error={activeTab === "approved" ? error : null}
+                status="approved"
+                canApprove={canProcessPayroll}
+                onStatusChange={refetch}
+              />
+            </TabsContent>
+            <TabsContent value="paid" forceMount className="mt-4">
+              <PayrollList 
+                payrolls={activeTab === "paid" ? (payrollData || []) : []} 
+                isLoading={isLoading && activeTab === "paid"} 
+                error={activeTab === "paid" ? error : null}
+                status="paid"
+                canApprove={canProcessPayroll}
+                onStatusChange={refetch}
+              />
+            </TabsContent>
+          </Tabs>
+        </div>
         
         <div className="flex gap-2 w-full sm:w-auto">
           <Button variant="outline" className="flex-1 sm:flex-none">
@@ -76,17 +108,6 @@ export default function PayrollPage() {
           )}
         </div>
       </div>
-      
-      <TabsContent value={activeTab} forceMount className="mt-0">
-        <PayrollList 
-          payrolls={payrollData || []} 
-          isLoading={isLoading} 
-          error={error}
-          status={activeTab}
-          canApprove={canProcessPayroll}
-          onStatusChange={refetch}
-        />
-      </TabsContent>
     </MainLayout>
   );
 }
