@@ -21,6 +21,8 @@ const registerSchema = z.object({
   username: z.string().min(3, "Username must be at least 3 characters"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   email: z.string().email("Invalid email address"),
+  role: z.enum(['administrator', 'hr_manager', 'hr_staff', 'employee']).default('employee'),
+  status: z.boolean().default(true)
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -45,6 +47,8 @@ export default function AuthPage() {
       username: "",
       password: "",
       email: "",
+      role: "employee",
+      status: true
     },
   });
 
