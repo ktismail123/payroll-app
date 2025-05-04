@@ -130,11 +130,12 @@ export function PayrollForm({ payrollData, isEditing = false, onSuccess }: Payro
         employeeId: data.employeeId,
         payPeriodStart: data.payPeriodStart,
         payPeriodEnd: data.payPeriodEnd,
-        basicSalary: parseFloat(data.basicSalary),
-        totalEarnings: calculateTotalEarnings(),
-        totalDeductions: calculateTotalDeductions(),
-        netSalary: calculateNetSalary(parseFloat(data.basicSalary)),
+        basicSalary: data.basicSalary, // Keep as string
+        totalEarnings: calculateTotalEarnings().toString(), // Convert to string
+        totalDeductions: calculateTotalDeductions().toString(), // Convert to string
+        netSalary: calculateNetSalary(parseFloat(data.basicSalary)).toString(), // Convert to string
         status: 'draft',
+        processDate: new Date().toISOString(), // Add required processDate
       });
       
       if (!payrollResponse.ok) {
@@ -219,7 +220,7 @@ export function PayrollForm({ payrollData, isEditing = false, onSuccess }: Payro
   };
 
   const getEmployeeName = (id: number) => {
-    if (!employees) return "";
+    if (!employees || !Array.isArray(employees)) return "";
     const employee = employees.find((emp: any) => emp.id === id);
     return employee ? `${employee.firstName} ${employee.lastName}` : "";
   };
@@ -245,11 +246,11 @@ export function PayrollForm({ payrollData, isEditing = false, onSuccess }: Payro
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {employees?.map((employee: any) => (
+                      {Array.isArray(employees) ? employees.map((employee: any) => (
                         <SelectItem key={employee.id} value={employee.id.toString()}>
                           {employee.firstName} {employee.lastName} ({employee.employeeId})
                         </SelectItem>
-                      ))}
+                      )) : null}
                     </SelectContent>
                   </Select>
                   <FormMessage />

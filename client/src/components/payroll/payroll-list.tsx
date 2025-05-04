@@ -139,11 +139,12 @@ export function PayrollList({
     }
   };
 
-  const payrollsToShow = payrolls.filter(payroll => 
+  // Make sure payrolls is an array before filtering
+  const payrollsToShow = Array.isArray(payrolls) ? payrolls.filter(payroll => 
     status === 'pending' ? payroll.status === 'draft' : 
     status === 'approved' ? payroll.status === 'approved' : 
     payroll.status === 'paid'
-  );
+  ) : [];
 
   return (
     <Card>

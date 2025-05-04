@@ -53,7 +53,7 @@ export default function PayrollPage() {
             </TabsList>
             <TabsContent value="pending" forceMount className="mt-4">
               <PayrollList 
-                payrolls={activeTab === "pending" ? (payrollData || []) : []} 
+                payrolls={activeTab === "pending" && Array.isArray(payrollData) ? payrollData : []} 
                 isLoading={isLoading && activeTab === "pending"} 
                 error={activeTab === "pending" ? error : null}
                 status="pending"
@@ -63,7 +63,7 @@ export default function PayrollPage() {
             </TabsContent>
             <TabsContent value="approved" forceMount className="mt-4">
               <PayrollList 
-                payrolls={activeTab === "approved" ? (payrollData || []) : []} 
+                payrolls={activeTab === "approved" && Array.isArray(payrollData) ? payrollData : []} 
                 isLoading={isLoading && activeTab === "approved"} 
                 error={activeTab === "approved" ? error : null}
                 status="approved"
@@ -73,7 +73,7 @@ export default function PayrollPage() {
             </TabsContent>
             <TabsContent value="paid" forceMount className="mt-4">
               <PayrollList 
-                payrolls={activeTab === "paid" ? (payrollData || []) : []} 
+                payrolls={activeTab === "paid" && Array.isArray(payrollData) ? payrollData : []} 
                 isLoading={isLoading && activeTab === "paid"} 
                 error={activeTab === "paid" ? error : null}
                 status="paid"
