@@ -55,6 +55,9 @@ const employeeFormSchema = z.object({
   userId: z.number().nullable().optional(),
   profilePhoto: z.string().optional(),
   status: z.enum(["active", "inactive", "terminated"]).default("active"),
+  
+  // This field is technically required in the schema, but will be generated on the server
+  employeeId: z.string().optional(),
 });
 
 type EmployeeFormValues = z.infer<typeof employeeFormSchema>;
@@ -158,6 +161,7 @@ export function EmployeeForm({ employeeData, isEditing = false, onSuccess }: Emp
       userId: null,
       profilePhoto: "",
       status: "active",
+      employeeId: "",  // This will be generated on the server
     },
   });
 
@@ -200,6 +204,7 @@ export function EmployeeForm({ employeeData, isEditing = false, onSuccess }: Emp
         userId: employeeData.userId || null,
         profilePhoto: employeeData.profilePhoto || "",
         status: employeeData.status || "active",
+        employeeId: employeeData.employeeId || "",
       });
     }
   }, [isEditing, employeeData, form]);
