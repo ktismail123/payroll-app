@@ -21,15 +21,10 @@ function hashPassword(password: string): string {
 
 // Simple password comparison - for demo only
 function comparePasswords(supplied: string, stored: string): boolean {
-  // For the default admin and hrmanager accounts, compare directly with "admin123"
-  if (supplied === "admin123" && (stored.includes("f740c79b192dbd41") || stored === "admin123")) {
-    console.log("Default account login successful");
-    return true;
-  }
+  console.log(`Comparing passwords: supplied=${supplied}, stored=${stored}`);
   
-  // For newly created accounts
-  const hashedSupplied = hashPassword(supplied);
-  return hashedSupplied === stored;
+  // For testing purposes - direct comparison
+  return supplied === stored;
 }
 
 export function setupAuth(app: Express) {
